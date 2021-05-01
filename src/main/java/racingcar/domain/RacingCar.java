@@ -2,7 +2,7 @@ package racingcar.domain;
 
 import racingcar.domain.strategy.MovableStrategy;
 
-public class RacingCar {
+public class RacingCar implements Comparable<RacingCar> {
 
 	private final String name;
 
@@ -36,12 +36,17 @@ public class RacingCar {
 		}
 	}
 
-	public String getName() {
-		return name;
+	@Override
+	public int compareTo(RacingCar o) {
+		return o.comparePosition(position);
 	}
 
-	public int getPosition() {
-		return position;
+	private int comparePosition(int otherPosition) {
+		return otherPosition - position;
+	}
+
+	public String getName() {
+		return name;
 	}
 
 }
