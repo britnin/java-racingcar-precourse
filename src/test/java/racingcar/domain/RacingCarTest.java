@@ -28,4 +28,20 @@ class RacingCarTest {
 			.isInstanceOf(IllegalArgumentException.class);
 	}
 
+	@Test
+	@DisplayName("이동 전략이 존재하지 않으면 자동자를 생성할 수 없다.")
+	void failToCreateRacingCarIfMovableStrategyIsNull() {
+		assertThatThrownBy(() -> new RacingCar("붕붕이", null))
+			.isInstanceOf(IllegalArgumentException.class);
+	}
+
+	@DisplayName("자동차는 이동 전략으로 이동할 수 있다.")
+	@ParameterizedTest
+	@ValueSource(booleans = { true, false })
+	void canMoveRacingCarByMovableStrategy(boolean isMovable) {
+		RacingCar racingCar = new RacingCar("붕붕이", () -> isMovable);
+		racingCar.move();
+		assertThat(racingCar.getPosition()).isEqualTo(isMovable ? 1 : 0);
+	}
+
 }
