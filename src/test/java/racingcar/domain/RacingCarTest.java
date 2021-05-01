@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -37,11 +38,13 @@ class RacingCarTest {
 
 	@DisplayName("자동차는 이동 전략으로 이동할 수 있다.")
 	@ParameterizedTest
-	@ValueSource(booleans = { true, false })
-	void canMoveRacingCarByMovableStrategy(boolean isMovable) {
+	@CsvSource({ "true,1", "false,0" })
+	void canMoveRacingCarByMovableStrategy(boolean isMovable, int result) {
 		RacingCar racingCar = new RacingCar("붕붕이", () -> isMovable);
+		RacingCar other = new RacingCar("상대붕붕이", () -> isMovable);
 		racingCar.move();
-		assertThat(racingCar.getPosition()).isEqualTo(isMovable ? 1 : 0);
+
+		assertThat(racingCar.compareTo(other)).isSameAs(result);
 	}
 
 }
