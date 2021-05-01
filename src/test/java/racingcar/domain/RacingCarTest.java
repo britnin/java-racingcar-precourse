@@ -8,12 +8,14 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import racingcar.domain.strategy.RandomMovableStrategy;
+
 class RacingCarTest {
 
 	@Test
-	@DisplayName("이름을 가진 자동자를 생성할 수 있다.")
-	void successToCreateRacingCarWithName() {
-		RacingCar car = new RacingCar("테스트");
+	@DisplayName("이름과 이동 전략을 가진 자동자를 생성할 수 있다.")
+	void successToCreateRacingCarWithNameAndMovableStrategy() {
+		RacingCar car = new RacingCar("테스트", new RandomMovableStrategy());
 		assertThat(car.getName()).isEqualTo("테스트");
 	}
 
@@ -22,7 +24,7 @@ class RacingCarTest {
 	@NullAndEmptySource
 	@ValueSource(strings = { "123456" })
 	void failToCreateRacingCarIfNameIsNullOrEmptyOrLength5Exceeds(String name) {
-		assertThatThrownBy(() -> new RacingCar(name))
+		assertThatThrownBy(() -> new RacingCar(name, new RandomMovableStrategy()))
 			.isInstanceOf(IllegalArgumentException.class);
 	}
 

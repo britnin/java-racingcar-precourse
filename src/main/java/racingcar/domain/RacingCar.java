@@ -1,13 +1,21 @@
 package racingcar.domain;
 
+import racingcar.domain.strategy.MovableStrategy;
+
 public class RacingCar {
 
 	private final String name;
 
-	public RacingCar(String name) {
+	private final MovableStrategy movableStrategy;
+
+	private int position;
+
+	public RacingCar(String name, MovableStrategy movableStrategy) {
 		validateName(name);
+		validateMovableStrategy(movableStrategy);
 
 		this.name = name;
+		this.movableStrategy = movableStrategy;
 	}
 
 	private void validateName(String name) {
@@ -16,8 +24,24 @@ public class RacingCar {
 		}
 	}
 
+	private void validateMovableStrategy(MovableStrategy movableStrategy) {
+		if (movableStrategy == null) {
+			throw new IllegalArgumentException("이동 전략이 존재하지 않습니다.");
+		}
+	}
+
+	public void move() {
+		if (movableStrategy.isMovable()) {
+			position++;
+		}
+	}
+
 	public String getName() {
 		return name;
+	}
+
+	public int getPosition() {
+		return position;
 	}
 
 }
