@@ -40,4 +40,8 @@ public class RacingCars {
 		return racingCarNames;
 	}
 
+	public List<RacingCar> toList() {
+		return Collections.unmodifiableList(racingCars);
+	}
+
 }
