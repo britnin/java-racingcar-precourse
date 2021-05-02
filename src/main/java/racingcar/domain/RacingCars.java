@@ -28,4 +28,8 @@ public class RacingCars {
 		}
 	}
 
+	public void moveAll() {
+		racingCars.forEach(RacingCar::move);
+	}
+
 }
