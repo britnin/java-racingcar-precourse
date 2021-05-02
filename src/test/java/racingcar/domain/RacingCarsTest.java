@@ -34,4 +34,21 @@ class RacingCarsTest {
 			.isInstanceOf(IllegalArgumentException.class);
 	}
 
+	@Test
+	@DisplayName("경주용 자동차들은 모두 이동전략에 의해 이동할 수 있다.")
+	void moveAllRacingCarsByMovableStrategy() {
+		RacingCar racingCar1 = new RacingCar("붕붕이1", () -> true);
+		RacingCar racingCar2 = new RacingCar("붕붕이2", () -> false);
+		RacingCar racingCar3 = new RacingCar("붕붕이3", () -> true);
+		RacingCar racingCar4 = new RacingCar("붕붕이4", () -> false);
+
+		RacingCars racingCars = new RacingCars(Arrays.asList(racingCar1, racingCar2, racingCar3, racingCar4));
+		racingCars.moveAll();
+
+		assertThat(racingCar1.compareTo(racingCar2)).isOne();
+		assertThat(racingCar3.compareTo(racingCar4)).isOne();
+		assertThat(racingCar1.compareTo(racingCar3)).isZero();
+		assertThat(racingCar2.compareTo(racingCar4)).isZero();
+	}
+
 }
