@@ -50,5 +50,20 @@ class RacingCarsTest {
 		assertThat(racingCar1.compareTo(racingCar3)).isZero();
 		assertThat(racingCar2.compareTo(racingCar4)).isZero();
 	}
+	
+	@Test
+	@DisplayName("우승 경주용 자동차 이름 리스트를 얻을 수 있다.")
+	void getWinnerRacingCarNames() {
+		RacingCars racingCars = new RacingCars(Arrays.asList(new RacingCar("붕붕이1", () -> true),
+			new RacingCar("붕붕이2", () -> false), 
+			new RacingCar("붕붕이3", () -> true), 
+			new RacingCar("붕붕이4", () -> false)));
+		
+		racingCars.moveAll();
+		WinnerRacingCarNames racingCarNames = racingCars.getWinnerRacingCarNames();
+
+		assertThat(racingCarNames).isInstanceOf(WinnerRacingCarNames.class);
+		assertThat(racingCarNames.toList().size()).isSameAs(2);
+	}
 
 }
