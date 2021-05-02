@@ -3,6 +3,7 @@ package racingcar.domain;
 import static org.assertj.core.api.Assertions.*;
 
 import java.util.Arrays;
+import java.util.List;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -64,6 +65,24 @@ class RacingCarsTest {
 
 		assertThat(racingCarNames).isInstanceOf(WinnerRacingCarNames.class);
 		assertThat(racingCarNames.toList().size()).isSameAs(2);
+	}
+
+	@Test
+	@DisplayName("불변 리스트를 얻을 수 있다.")
+	void getUnmodifiableList() {
+		RacingCars racingCars = new RacingCars(Arrays.asList(new RacingCar("붕붕이1", () -> true),
+			new RacingCar("붕붕이2", () -> false),
+			new RacingCar("붕붕이3", () -> true),
+			new RacingCar("붕붕이4", () -> false)));
+
+		List<RacingCar> list = racingCars.toList();
+		assertThat(list.size()).isSameAs(4);
+		assertThatThrownBy(() -> list.add(new RacingCar("붕붕이5", () -> false)))
+			.isInstanceOf(UnsupportedOperationException.class);
+		assertThatThrownBy(() -> list.remove(0))
+			.isInstanceOf(UnsupportedOperationException.class);
+		assertThatThrownBy(() -> list.clear())
+			.isInstanceOf(UnsupportedOperationException.class);
 	}
 
 }
