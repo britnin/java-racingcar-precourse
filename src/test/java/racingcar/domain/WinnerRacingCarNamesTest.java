@@ -2,6 +2,8 @@ package racingcar.domain;
 
 import static org.assertj.core.api.Assertions.*;
 
+import java.util.List;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -19,6 +21,24 @@ class WinnerRacingCarNamesTest {
 	void failToCreateWinnerRacingCarNamesIfWinnerRacingCarIsNull() {
 		assertThatThrownBy(() -> new WinnerRacingCarNames(null))
 			.isInstanceOf(IllegalArgumentException.class);
+	}
+
+	@Test
+	@DisplayName("불변 리스트를 얻을 수 있다.")
+	void getUnmodifiableList() {
+		WinnerRacingCarNames racingCarNames = new WinnerRacingCarNames(new RacingCar("붕붕이1", () -> true));
+		racingCarNames.add(new RacingCar("붕붕이2", () -> true));
+		racingCarNames.add(new RacingCar("붕붕이3", () -> true));
+		racingCarNames.add(new RacingCar("붕붕이4", () -> true));
+
+		List<String> list = racingCarNames.toList();
+		assertThat(list.size()).isSameAs(3);
+		assertThatThrownBy(() -> list.add("붕붕이5"))
+			.isInstanceOf(UnsupportedOperationException.class);
+		assertThatThrownBy(() -> list.remove(0))
+			.isInstanceOf(UnsupportedOperationException.class);
+		assertThatThrownBy(() -> list.clear())
+			.isInstanceOf(UnsupportedOperationException.class);
 	}
 
 }
