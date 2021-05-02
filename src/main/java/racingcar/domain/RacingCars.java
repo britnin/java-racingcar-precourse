@@ -1,5 +1,6 @@
 package racingcar.domain;
 
+import java.util.Collections;
 import java.util.List;
 
 public class RacingCars {
@@ -30,6 +31,13 @@ public class RacingCars {
 
 	public void moveAll() {
 		racingCars.forEach(RacingCar::move);
+	}
+
+	public WinnerRacingCarNames getWinnerRacingCarNames() {
+		WinnerRacingCarNames racingCarNames = new WinnerRacingCarNames(Collections.max(racingCars));
+		racingCars.forEach(racingCarNames::add);
+
+		return racingCarNames;
 	}
 
 }
