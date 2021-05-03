@@ -23,7 +23,7 @@ public class ResultView {
 
 	public static void printRacingCarsPosition(RacingCars racingCars) {
 		StringBuilder sb = new StringBuilder();
-		racingCars.toList().forEach(racingCar -> sb.append(racingCar.getName())
+		racingCars.toList().forEach(racingCar -> sb.append(racingCar.getCarName())
 			.append(":")
 			.append(getCarPositionBar(racingCar.getPosition()))
 			.append(NEW_LINE));
@@ -40,7 +40,10 @@ public class ResultView {
 	}
 
 	private static String getWinnerRacingCarName(WinnerRacingCarNames racingCarNames) {
-		return String.join(", ", racingCarNames.toList());
+		StringBuilder sb = new StringBuilder();
+		racingCarNames.toList().forEach(carName -> sb.append(carName).append(", "));
+
+		return sb.substring(0, sb.length() - 2);
 	}
 
 }

@@ -6,7 +6,7 @@ import java.util.List;
 
 public class WinnerRacingCarNames {
 
-	private final List<String> racingCarNames = new ArrayList<>();
+	private final List<CarName> racingCarNames = new ArrayList<>();
 
 	private final RacingCar winnerRacingCar;
 
@@ -24,11 +24,11 @@ public class WinnerRacingCarNames {
 
 	public void add(RacingCar racingCar) {
 		if (winnerRacingCar.compareTo(racingCar) == 0) {
-			racingCarNames.add(racingCar.getName());
+			racingCarNames.add(racingCar.getCarName());
 		}
 	}
 
-	public List<String> toList() {
+	public List<CarName> toList() {
 		return Collections.unmodifiableList(racingCarNames);
 	}
 

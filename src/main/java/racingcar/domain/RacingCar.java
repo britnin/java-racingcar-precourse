@@ -4,23 +4,23 @@ import racingcar.domain.strategy.MovableStrategy;
 
 public class RacingCar implements Comparable<RacingCar> {
 
-	private final String name;
+	private final CarName carName;
 
 	private final MovableStrategy movableStrategy;
 
 	private int position;
 
-	public RacingCar(String name, MovableStrategy movableStrategy) {
-		validateName(name);
+	public RacingCar(CarName carName, MovableStrategy movableStrategy) {
+		validateCarName(carName);
 		validateMovableStrategy(movableStrategy);
 
-		this.name = name;
+		this.carName = carName;
 		this.movableStrategy = movableStrategy;
 	}
 
-	private void validateName(String name) {
-		if (name == null || name.trim().isEmpty() || name.length() > 5) {
-			throw new IllegalArgumentException("자동자 이름이 존재하지 않거나, 길이가 5 이하여야 합니다.");
+	private void validateCarName(CarName carName) {
+		if (carName == null) {
+			throw new IllegalArgumentException("자동자 이름이 존재하지 않습니다.");
 		}
 	}
 
@@ -45,8 +45,8 @@ public class RacingCar implements Comparable<RacingCar> {
 		return otherPosition - position;
 	}
 
-	public String getName() {
-		return name;
+	public CarName getCarName() {
+		return carName;
 	}
 
 	public int getPosition() {

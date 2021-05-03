@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import racingcar.domain.CarName;
 import racingcar.domain.RacingCar;
 import racingcar.domain.RacingCars;
 import racingcar.domain.RacingRound;
@@ -34,7 +35,7 @@ public class InputView {
 	private static RacingCars createRacingCars(String inputValue) {
 		List<RacingCar> racingCars = new ArrayList<>();
 		for (String carName : inputValue.split(SEPARATOR)) {
-			racingCars.add(new RacingCar(carName, MOVABLE_STRATEGY));
+			racingCars.add(new RacingCar(new CarName(carName), MOVABLE_STRATEGY));
 		}
 
 		return new RacingCars(racingCars);
