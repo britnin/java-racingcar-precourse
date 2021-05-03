@@ -12,7 +12,7 @@ class WinnerRacingCarNamesTest {
 	@Test
 	@DisplayName("우승 경주용 자동자 이름 일급 컬렉션을 생성할 수 있다.")
 	void successToCreateWinnerRacingCarNames() {
-		WinnerRacingCarNames racingCarNames = new WinnerRacingCarNames(new RacingCar("붕붕이", () -> true));
+		WinnerRacingCarNames racingCarNames = new WinnerRacingCarNames(new RacingCar(new CarName("붕붕이"), () -> true));
 		assertThat(racingCarNames).isInstanceOf(WinnerRacingCarNames.class);
 	}
 
@@ -26,14 +26,14 @@ class WinnerRacingCarNamesTest {
 	@Test
 	@DisplayName("불변 리스트를 얻을 수 있다.")
 	void getUnmodifiableList() {
-		WinnerRacingCarNames racingCarNames = new WinnerRacingCarNames(new RacingCar("붕붕이1", () -> true));
-		racingCarNames.add(new RacingCar("붕붕이2", () -> true));
-		racingCarNames.add(new RacingCar("붕붕이3", () -> true));
-		racingCarNames.add(new RacingCar("붕붕이4", () -> true));
+		WinnerRacingCarNames racingCarNames = new WinnerRacingCarNames(new RacingCar(new CarName("붕붕이1"), () -> true));
+		racingCarNames.add(new RacingCar(new CarName("붕붕이2"), () -> true));
+		racingCarNames.add(new RacingCar(new CarName("붕붕이3"), () -> true));
+		racingCarNames.add(new RacingCar(new CarName("붕붕이4"), () -> true));
 
-		List<String> list = racingCarNames.toList();
+		List<CarName> list = racingCarNames.toList();
 		assertThat(list.size()).isSameAs(3);
-		assertThatThrownBy(() -> list.add("붕붕이5"))
+		assertThatThrownBy(() -> list.add(new CarName("붕붕이5")))
 			.isInstanceOf(UnsupportedOperationException.class);
 		assertThatThrownBy(() -> list.remove(0))
 			.isInstanceOf(UnsupportedOperationException.class);
